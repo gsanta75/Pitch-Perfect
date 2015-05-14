@@ -30,7 +30,6 @@
                                 </state>
                                 <connections>
                                     <action selector="stopRecordAudio:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="5yw-BB-71i"/>
-                                    <segue destination="huB-ef-8tE" kind="show" id="UiY-Ms-pzt"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s4m-Gr-N7Z" userLabel="RecordButton">
@@ -58,6 +57,7 @@
                         <outlet property="recordButton" destination="s4m-Gr-N7Z" id="gbN-jr-fX9"/>
                         <outlet property="recordingLabel" destination="F1g-aX-Wja" id="u6C-FW-Ftb"/>
                         <outlet property="stopButton" destination="lmC-Re-7Li" id="RMf-Er-hz3"/>
+                        <segue destination="huB-ef-8tE" kind="show" identifier="stopRecordAudio" id="cin-WX-n4C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
