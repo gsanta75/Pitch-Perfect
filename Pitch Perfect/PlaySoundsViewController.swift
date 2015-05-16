@@ -9,8 +9,9 @@
 import UIKit
 import AVFoundation
 
-class PlaySoundsViewController: UIViewController {
+class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     
+    @IBOutlet weak var playAndStopButton: UIButton!
     var audioPlayer: AVAudioPlayer!
     var recivedAudio: RecordedAudio!
     var audioEngine: AVAudioEngine!
@@ -25,23 +26,20 @@ class PlaySoundsViewController: UIViewController {
         }else{
             println("Files not found")
         }
-        
+        audioPlayer.delegate = self
         audioEngine = AVAudioEngine()
         audioFile = AVAudioFile(forReading: recivedAudio.filePathUrl, error: nil)
         
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func playAudioWithRate(rate: Float){
         audioPlayer.stop()
+        audioEngine.stop()
+        audioEngine.reset()
         audioPlayer.rate = rate
         audioPlayer.currentTime = 0.0
         audioPlayer.play()
-
+        playAndStopButton.selected = true
     }
 
     @IBAction func playSlowAudio(sender: UIButton) {
@@ -52,9 +50,17 @@ class PlaySoundsViewController: UIViewController {
         playAudioWithRate(1.5)
     }
     
-    @IBAction func stopAudio(sender: UIButton) {
-        audioPlayer.stop()
+    @IBAction func playAndStopAudio(sender: UIButton) {
+        sender.selected = !sender.selected
+        if sender.selected {
+            playAudioWithRate(1.0)
+        }else{
+            audioPlayer.stop()
+            audioEngine.stop()
+            audioEngine.reset()
+        }
     }
+
     
     @IBAction func playChipmunkAudio(sender: UIButton) {
         playAudioWithVariablePitch(1000)
@@ -75,10 +81,16 @@ class PlaySoundsViewController: UIViewController {
         audioEngine.connect(audioPlayerNode, to: changePitchEffect, format: nil)
         audioEngine.connect(changePitchEffect, to: audioEngine.outputNode, format: nil)
         
-        audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
+        
+        audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: {
+
+            self.playAndStopButton.selected = !self.playAndStopButton.selected
+        })
         audioEngine.startAndReturnError(nil)
         
         audioPlayerNode.play()
+        playAndStopButton.selected = true
+
     }
 
     @IBAction func playDarthvaderAudio(sender: UIButton) {
@@ -87,10 +99,11 @@ class PlaySoundsViewController: UIViewController {
     
     
     
-    
-    
-    
-    
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
+        if flag {
+            playAndStopButton.selected = !playAndStopButton.selected
+        }
+    }
     
     
     

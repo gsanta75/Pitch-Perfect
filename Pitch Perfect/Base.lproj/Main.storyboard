@@ -96,11 +96,12 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pfv-3z-suH">
                                 <rect key="frame" x="267" y="453" width="66" height="66"/>
-                                <state key="normal" image="Stop">
+                                <state key="normal" image="Play">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <state key="selected" image="Stop"/>
                                 <connections>
-                                    <action selector="stopAudio:" destination="huB-ef-8tE" eventType="touchUpInside" id="PM0-hY-quE"/>
+                                    <action selector="playAndStopAudio:" destination="huB-ef-8tE" eventType="touchUpInside" id="yP2-MX-orU"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NZk-M7-jV8">
@@ -136,10 +137,13 @@
                             <constraint firstItem="NOs-8c-nqB" firstAttribute="trailing" secondItem="wYo-0e-mCg" secondAttribute="trailingMargin" id="sUh-p9-3zO"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="playAndStopButton" destination="pfv-3z-suH" id="88V-A5-t0L"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d2F-h1-T7L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1871" y="431"/>
+            <point key="canvasLocation" x="1839" y="431"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8mI-bh-tPK">
@@ -163,6 +167,7 @@
     <resources>
         <image name="Feder" width="130" height="130"/>
         <image name="Microphone" width="53" height="100"/>
+        <image name="Play" width="66" height="66"/>
         <image name="Rabbit" width="132" height="132"/>
         <image name="Slow" width="132" height="132"/>
         <image name="Squirrel" width="132" height="132"/>
