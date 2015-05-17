@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="recording..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1g-aX-Wja" userLabel="RecordingLabel">
-                                <rect key="frame" x="257" y="290" width="86" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to record" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1g-aX-Wja" userLabel="RecordingLabel">
+                                <rect key="frame" x="250" y="290" width="101" height="20"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" red="0.80392156859999997" green="0.83137254900000002" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -41,7 +41,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.5644675925925926" green="0.48111894063180827" blue="0.50735634531590412" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.24630991285403048" green="0.32524169389978214" blue="0.42383067810457514" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="lmC-Re-7Li" secondAttribute="centerX" id="Aeh-zj-xgM"/>
                             <constraint firstAttribute="centerX" secondItem="F1g-aX-Wja" secondAttribute="centerX" id="Wgc-Ms-9nX"/>
@@ -86,7 +86,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NOs-8c-nqB">
-                                <rect key="frame" x="452" y="84" width="132" height="132"/>
+                                <rect key="frame" x="454" y="84" width="130" height="130"/>
                                 <state key="normal" image="Rabbit">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -114,7 +114,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGM-9b-iqF">
-                                <rect key="frame" x="454" y="261" width="130" height="130"/>
+                                <rect key="frame" x="454" y="259" width="130" height="130"/>
                                 <state key="normal" image="Feder">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -123,7 +123,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.56446759260000001" green="0.48111894059999999" blue="0.50735634529999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.24705882352941178" green="0.32549019607843138" blue="0.42352941176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="NZk-M7-jV8" firstAttribute="top" secondItem="wu9-hT-KuC" secondAttribute="bottom" constant="43" id="0xO-qX-l1K"/>
                             <constraint firstItem="wu9-hT-KuC" firstAttribute="leading" secondItem="wYo-0e-mCg" secondAttribute="leadingMargin" id="748-H5-38d"/>
@@ -161,14 +161,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iC5-dc-YGq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="313" y="431"/>
+            <point key="canvasLocation" x="305" y="431"/>
         </scene>
     </scenes>
     <resources>
         <image name="Feder" width="130" height="130"/>
         <image name="Microphone" width="53" height="100"/>
         <image name="Play" width="66" height="66"/>
-        <image name="Rabbit" width="132" height="132"/>
+        <image name="Rabbit" width="130" height="130"/>
         <image name="Slow" width="132" height="132"/>
         <image name="Squirrel" width="132" height="132"/>
         <image name="Stop" width="66" height="66"/>

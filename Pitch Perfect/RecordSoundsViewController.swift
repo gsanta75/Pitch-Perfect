@@ -25,6 +25,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     
     override func viewWillAppear(animated: Bool) {
         recordButton.enabled = true
+        recordingLabel.text = "Tap to record"
         stopButton.hidden = true
     }
     
@@ -36,7 +37,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
 
     @IBAction func recordAudio(sender: UIButton) {
         sender.enabled = false
-        recordingLabel.hidden = false
+        recordingLabel.text = "Recording..."
         stopButton.hidden = false
         
         // Setup sounds file name and path folder
@@ -50,10 +51,11 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         //println(filePath)
         
         var recordSettings: [NSObject : AnyObject] = [AVFormatIDKey:kAudioFormatAppleIMA4, AVSampleRateKey:44100.0, AVNumberOfChannelsKey:2, AVLinearPCMBitDepthKey:16, AVEncoderBitRateKey:AVAudioQuality.Max.rawValue]
+
         // Shared Audio session singleton
         var session = AVAudioSession.sharedInstance()
         session.setCategory(AVAudioSessionCategoryPlayAndRecord, error: nil)
-        
+        session.overrideOutputAudioPort(.Speaker, error: nil)
         // Record Audio
         var error: NSError?
         audioRecorder = AVAudioRecorder(URL: filePath, settings: recordSettings, error: &error)
@@ -68,7 +70,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     }
 
     @IBAction func stopRecordAudio(sender: UIButton) {
-        recordingLabel.hidden = true
+        //recordingLabel.text = "Recording..."
         
         audioRecorder.stop()
         var audioSession = AVAudioSession.sharedInstance()
