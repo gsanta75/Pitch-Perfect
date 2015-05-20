@@ -63,7 +63,9 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
 
     
     @IBAction func playChipmunkAudio(sender: UIButton) {
-        playAudioWithVariablePitch(1000)
+        if !sender.selected {
+            playAudioWithVariablePitch(1000)
+        }
     }
     
     func playAudioWithVariablePitch(pitch: Float){
@@ -81,10 +83,15 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
         audioEngine.connect(audioPlayerNode, to: changePitchEffect, format: nil)
         audioEngine.connect(changePitchEffect, to: audioEngine.outputNode, format: nil)
         
-        
         audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: {
-
-            self.playAndStopButton.selected = !self.playAndStopButton.selected
+            
+            // the data in the file has been scheduled but the player isn't actually done playing yet
+            // calculate the approximate time remaining for the player to finish playing and then dispatch the notification to the main thread
+            var playerTime = audioPlayerNode.playerTimeForNodeTime(audioPlayerNode.lastRenderTime)
+            var delayInSecs = (Double(self.audioFile.length) - playerTime.sampleRate) / self.audioFile.processingFormat.sampleRate
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(delayInSecs) * NSEC_PER_SEC)), dispatch_get_main_queue(), {
+                self.playAndStopButton.selected = !self.playAndStopButton.selected
+            })
         })
         audioEngine.startAndReturnError(nil)
         
@@ -96,7 +103,6 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     @IBAction func playDarthvaderAudio(sender: UIButton) {
         playAudioWithVariablePitch(-1000)
     }
-    
     
     
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
