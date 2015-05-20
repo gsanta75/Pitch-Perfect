@@ -63,9 +63,7 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
 
     
     @IBAction func playChipmunkAudio(sender: UIButton) {
-        if !sender.selected {
             playAudioWithVariablePitch(1000)
-        }
     }
     
     func playAudioWithVariablePitch(pitch: Float){
