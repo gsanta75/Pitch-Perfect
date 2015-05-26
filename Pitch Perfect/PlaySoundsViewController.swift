@@ -59,7 +59,7 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
         playAudioWithRate(0.5)
     }
     
-    @IBAction func playFasrAudio(sender: UIButton) {
+    @IBAction func playFastAudio(sender: UIButton) {
         playAudioWithRate(1.5)
     }
     
