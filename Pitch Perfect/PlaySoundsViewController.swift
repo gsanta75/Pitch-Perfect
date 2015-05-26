@@ -16,6 +16,7 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     var recivedAudio: RecordedAudio!
     var audioEngine: AVAudioEngine!
     var audioFile: AVAudioFile!
+    var playing = false { didSet { updateUI() } }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,14 +33,26 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
         
     }
     
-    func playAudioWithRate(rate: Float){
+    func updateUI(){
+        if playing{
+            playAndStopButton.selected = true
+        }else{
+            playAndStopButton.selected = false
+        }
+    }
+    
+    func resetAllAudio(){
         audioPlayer.stop()
         audioEngine.stop()
         audioEngine.reset()
+    }
+    
+    func playAudioWithRate(rate: Float){
+        resetAllAudio()
         audioPlayer.rate = rate
         audioPlayer.currentTime = 0.0
         audioPlayer.play()
-        playAndStopButton.selected = true
+        playing = true
     }
 
     @IBAction func playSlowAudio(sender: UIButton) {
@@ -51,13 +64,11 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     @IBAction func playAndStopAudio(sender: UIButton) {
-        sender.selected = !sender.selected
-        if sender.selected {
+        if !playing {
             playAudioWithRate(1.0)
         }else{
-            audioPlayer.stop()
-            audioEngine.stop()
-            audioEngine.reset()
+            resetAllAudio()
+            playing = false
         }
     }
 
@@ -67,10 +78,8 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     func playAudioWithVariablePitch(pitch: Float){
-        audioPlayer.stop()
-        audioEngine.stop()
-        audioEngine.reset()
-        
+
+        resetAllAudio()
         var audioPlayerNode = AVAudioPlayerNode()
         audioEngine.attachNode(audioPlayerNode)
         
@@ -80,7 +89,7 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
         
         audioEngine.connect(audioPlayerNode, to: changePitchEffect, format: nil)
         audioEngine.connect(changePitchEffect, to: audioEngine.outputNode, format: nil)
-        
+
         audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: {
             
             // the data in the file has been scheduled but the player isn't actually done playing yet
@@ -88,13 +97,13 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
             var playerTime = audioPlayerNode.playerTimeForNodeTime(audioPlayerNode.lastRenderTime)
             var delayInSecs = (Double(self.audioFile.length) - playerTime.sampleRate) / self.audioFile.processingFormat.sampleRate
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(delayInSecs) * NSEC_PER_SEC)), dispatch_get_main_queue(), {
-                self.playAndStopButton.selected = !self.playAndStopButton.selected
+                self.playing = false
             })
         })
         audioEngine.startAndReturnError(nil)
         
         audioPlayerNode.play()
-        playAndStopButton.selected = true
+        playing = true
 
     }
 
@@ -105,7 +114,7 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
         if flag {
-            playAndStopButton.selected = !playAndStopButton.selected
+            playing = false
         }
     }
     

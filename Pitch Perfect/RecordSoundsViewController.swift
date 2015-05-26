@@ -17,29 +17,32 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     
     var audioRecorder: AVAudioRecorder!
     var recordedAudio: RecordedAudio!
+    var recording: Bool = false { didSet { updateUI() } }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-    
+
     override func viewWillAppear(animated: Bool) {
-        recordButton.enabled = true
-        recordingLabel.text = "Tap to record"
-        stopButton.hidden = true
+        updateUI()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    func updateUI() {
+        if recording{
+            recordButton.enabled = false
+            recordingLabel.text = "Recording..."
+            stopButton.hidden = false
+        }else{
+            recordButton.enabled = true
+            recordingLabel.text = "Tap to record"
+            stopButton.hidden = true
+        }
+    }
 
     @IBAction func recordAudio(sender: UIButton) {
-        sender.enabled = false
-        recordingLabel.text = "Recording..."
-        stopButton.hidden = false
-        
+        recording = true
         // Setup sounds file name and path folder
         let dirPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
         let currentDateTime = NSDate()
@@ -70,8 +73,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     }
 
     @IBAction func stopRecordAudio(sender: UIButton) {
-        //recordingLabel.text = "Recording..."
-        
+        recording = false
         audioRecorder.stop()
         var audioSession = AVAudioSession.sharedInstance()
         audioSession.setActive(false, error: nil)
@@ -83,8 +85,6 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
             performSegueWithIdentifier("stopRecordAudio", sender: recordedAudio)
         }else{
             println("Recording was not successful")
-            recordButton.enabled = true
-            stopButton.hidden = true
         }
     }
     
